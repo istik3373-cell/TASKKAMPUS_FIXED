@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TaskKampus</title>
+
+    <link rel="stylesheet" href="css/login.css">
+
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-clipboard-list"></i>
+
+            <h1>TaskKampus</h1>
+
+            <p>
+                Sistem Manajemen Tugas Mahasiswa
+            </p>
+
+        </div>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+
+                <label>Email</label>
+
+                <input
+                type="email"
+                id="email"
+                placeholder="Masukkan email"
+                required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Password</label>
+
+                <input
+                type="password"
+                id="password"
+                placeholder="Masukkan password"
+                required>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Login Sebagai</label>
+
+                <select id="role">
+
+                    <option value="mahasiswa">
+                        Mahasiswa
+                    </option>
+
+                    <option value="dosen">
+                        Dosen
+                    </option>
+
+                </select>
+
+            </div>
+
+            <button type="submit">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+    </div>
+
+</div>
+
+<script src="js/login.js"></script>
+
+</body>
+</html>

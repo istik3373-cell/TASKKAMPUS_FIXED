@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard TaskKampus</title>
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>TaskKampus</h2>
+  <ul>
+    <li onclick="showPage('dashboard')">
+      <i class="fa-solid fa-house"></i> Dashboard
+    </li>
+    <li onclick="showPage('tugas')">
+      <i class="fa-solid fa-book"></i> Daftar Tugas
+    </li>
+    <!-- Upload Tugas: hanya muncul untuk mahasiswa -->
+    <li id="menuUpload" onclick="showPage('upload')">
+      <i class="fa-solid fa-file-arrow-up"></i> Upload Tugas
+    </li>
+    <!-- Kelola Tugas: hanya muncul untuk dosen -->
+    <li id="menuKelola" onclick="showPage('kelola')">
+      <i class="fa-solid fa-upload"></i> Kelola Tugas
+    </li>
+    <li id="menuMonitoring" onclick="showPage('monitoring')">
+      <i class="fa-solid fa-chart-line"></i> Monitoring
+    </li>
+    <li onclick="showPage('pesan')">
+      <i class="fa-solid fa-message"></i> Pesan
+    </li>
+  </ul>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div class="content">
+
+  <!-- ===== DASHBOARD ===== -->
+  <div id="dashboard" class="page">
+    <h1 id="welcomeText">Selamat Datang</h1>
+
+    <div class="profile-card">
+      <img id="avatar" class="avatar-img" src="" alt="Foto Profil">
+      <div>
+        <h3 id="profile-name"></h3>
+        <p id="profile-prodi"></p>
+        <p id="profile-info"></p>
+      </div>
+    </div>
+
+    <!-- Cards mahasiswa -->
+    <div id="cardsMahasiswa" class="cards" style="display:none">
+      <div class="card">
+        <h3>Total Tugas</h3>
+        <p id="totalTugasCard">0</p>
+      </div>
+      <div class="card">
+        <h3>Selesai</h3>
+        <p id="selesaiCard">0</p>
+      </div>
+      <div class="card">
+        <h3>Belum Selesai</h3>
+        <p id="belumSelesaiCard">0</p>
+      </div>
+      <div class="card">
+        <h3>Persentase</h3>
+        <p id="persentaseCard">0%</p>
+      </div>
+    </div>
+
+    <!-- Cards dosen -->
+    <div id="cardsDosen" class="cards" style="display:none">
+      <div class="card">
+        <h3>Total Tugas Dibuat</h3>
+        <p id="totalTugasDosenCard">0</p>
+      </div>
+      <div class="card">
+        <h3>Mahasiswa Mengumpulkan</h3>
+        <p id="mahasiswaSelesaiCard">0</p>
+      </div>
+      <div class="card">
+        <h3>Belum Mengumpulkan</h3>
+        <p id="mahasiswaBelumCard">0</p>
+      </div>
+      <div class="card">
+        <h3>Tingkat Pengumpulan</h3>
+        <p id="persentaseDosenCard">0%</p>
+      </div>
+    </div>
+
+    <!-- Progress mahasiswa -->
+    <div id="progressMahasiswa" style="display:none">
+      <div class="deadline-box" style="margin-top:20px;">
+        <h2>📊 Progress Penyelesaian Tugas</h2>
+        <div class="progress" style="margin-top:15px;">
+          <div class="progress-bar" id="progressBar" style="width:0%"></div>
+        </div>
+        <p style="margin-top:10px;" id="progressText">0 dari 0 tugas telah diselesaikan.</p>
+      </div>
+    </div>
+
+    <!-- Monitoring dosen: siapa yang sudah mengumpulkan -->
+    <div id="monitoringDosen" style="display:none">
+      <div class="deadline-box" style="margin-top:20px;">
+        <h2>👥 Status Pengumpulan Mahasiswa</h2>
+        <table id="tabelMonitoringDosen">
+          <thead>
+            <tr>
+              <th>Mahasiswa</th>
+              <th>Mata Kuliah</th>
+              <th>Tugas</th>
+              <th>Status</th>
+              <th>Waktu Upload</th>
+            </tr>
+          </thead>
+          <tbody id="bodyMonitoringDosen"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="jadwal">
+      <h2>📚 Jadwal Hari Ini</h2>
+      <ul>
+        <li>08.00 - 10.00<br>Evaluasi Pembelajaran</li>
+        <li>13.00 - 15.00<br>DTI RPL</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== DAFTAR TUGAS (Mahasiswa) ===== -->
+  <div id="tugas" class="page hidden">
+    <h1>Daftar Tugas</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Mata Kuliah</th>
+          <th>Judul Tugas</th>
+          <th>Deadline</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="bodyDaftarTugas"></tbody>
+    </table>
+  </div>
+
+  <!-- ===== UPLOAD TUGAS (Mahasiswa) ===== -->
+  <div id="upload" class="page hidden">
+    <h1>📤 Upload Tugas</h1>
+    <div class="deadline-box">
+      <h2>Pilih Tugas & Upload File</h2>
+
+      <label style="margin-top:15px;display:block;">Pilih Tugas</label>
+      <select id="pilihTugasUpload" style="width:100%;padding:12px;margin-top:8px;border-radius:10px;background:#334155;color:white;border:none;">
+        <option value="">-- Pilih Tugas --</option>
+      </select>
+
+      <label style="margin-top:15px;display:block;">File Tugas</label>
+      <input type="file" id="fileUpload" style="margin-top:8px;">
+
+      <button onclick="doUploadTugas()" style="margin-top:15px;">
+        <i class="fa-solid fa-upload"></i> Upload Tugas
+      </button>
+      <p id="pesanUpload" style="margin-top:10px;color:#22c55e;font-weight:bold;"></p>
+    </div>
+
+    <div class="deadline-box" style="margin-top:20px;">
+      <h2>📋 Riwayat Upload</h2>
+      <table>
+        <thead>
+          <tr><th>Mata Kuliah</th><th>Judul Tugas</th><th>Waktu Upload</th><th>Status</th></tr>
+        </thead>
+        <tbody id="riwayatUpload"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== KELOLA TUGAS (Dosen) ===== -->
+  <div id="kelola" class="page hidden">
+    <h1>Kelola Tugas</h1>
+
+    <div class="deadline-box">
+      <h2>➕ Tambah Tugas Baru</h2>
+      <input id="judulTugas" type="text" placeholder="Judul Tugas">
+      <input id="matkulTugas" type="text" placeholder="Mata Kuliah">
+      <input id="deadlineTugas" type="date">
+      <button onclick="tambahTugas()">
+        <i class="fa-solid fa-plus"></i> Tambah Tugas
+      </button>
+      <p id="pesanKelola" style="margin-top:10px;color:#22c55e;font-weight:bold;"></p>
+    </div>
+
+    <div class="deadline-box" style="margin-top:20px;">
+      <h2>📋 Daftar Tugas Yang Dikelola</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Mata Kuliah</th>
+            <th>Judul Tugas</th>
+            <th>Deadline</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="dataTugasDosen"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== MONITORING (Mahasiswa) ===== -->
+  <div id="monitoring" class="page hidden">
+    <h1>Monitoring Tugas</h1>
+    <div class="cards">
+      <div class="card">
+        <h3>Total Tugas</h3>
+        <p id="monTotalTugas">0</p>
+      </div>
+      <div class="card">
+        <h3>Selesai</h3>
+        <p id="monSelesai">0</p>
+      </div>
+      <div class="card">
+        <h3>Belum Selesai</h3>
+        <p id="monBelum">0</p>
+      </div>
+      <div class="card">
+        <h3>Persentase</h3>
+        <p id="monPersen">0%</p>
+      </div>
+    </div>
+    <div class="deadline-box" style="margin-top:20px;">
+      <h2>📊 Progress Penyelesaian Tugas</h2>
+      <div class="progress" style="margin-top:15px;">
+        <div class="progress-bar" id="monProgressBar" style="width:0%"></div>
+      </div>
+      <p style="margin-top:10px;" id="monProgressText">0 dari 0 tugas telah diselesaikan.</p>
+    </div>
+    <div class="deadline-box" style="margin-top:20px;">
+      <h2>📋 Detail Tugas</h2>
+      <table>
+        <thead>
+          <tr><th>Mata Kuliah</th><th>Tugas</th><th>Deadline</th><th>Status</th></tr>
+        </thead>
+        <tbody id="monDetailTugas"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== PESAN ===== -->
+  <div id="pesan" class="page hidden">
+    <h1>Pesan</h1>
+    <div class="chat-box" id="chatBox">
+      <!-- pesan akan dirender dari localStorage -->
+    </div>
+    <div style="display:flex;gap:10px;margin-top:15px;align-items:flex-end;">
+      <textarea id="inputPesan" placeholder="Tulis pesan..." style="flex:1;height:80px;resize:none;background:#1e293b;color:white;border:1px solid #334155;border-radius:10px;padding:12px;"></textarea>
+      <button onclick="kirimPesan()" style="height:80px;padding:0 20px;">
+        <i class="fa-solid fa-paper-plane"></i><br>Kirim
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

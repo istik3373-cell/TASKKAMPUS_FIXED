@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Tugas</title>
+
+<link rel="stylesheet" href="css/upload tugas.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📤 Upload Tugas</h1>
+
+    <div class="card">
+
+        <label>Mata Kuliah</label>
+
+        <input
+        type="text"
+        id="matkul"
+        placeholder="Masukkan Mata Kuliah">
+
+        <label>Judul Tugas</label>
+
+        <input
+        type="text"
+        id="judul"
+        placeholder="Masukkan Judul Tugas">
+
+        <label>Nama File</label>
+
+        <input
+        type="text"
+        id="file"
+        placeholder="Contoh: laporan.pdf">
+
+        <button onclick="uploadTugas()">
+            Upload Tugas
+        </button>
+
+        <p id="pesan"></p>
+
+    </div>
+
+    <button class="kembali"
+    onclick="window.location.href='dashboard.html'">
+        Kembali ke Dashboard
+    </button>
+
+</div>
+
+<script src="js/upload tugas.js"></script>
+
+</body>
+</html>

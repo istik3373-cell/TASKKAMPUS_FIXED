@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>TaskKampus</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+
+            background:#0f0a2a;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            height:100vh;
+
+            color:white;
+
+            flex-direction:column;
+        }
+
+        .logo{
+
+            width:100px;
+
+            height:100px;
+
+            border-radius:20px;
+
+            background:linear-gradient(
+                135deg,
+                #8b5cf6,
+                #3b82f6
+            );
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            font-size:40px;
+
+            margin-bottom:20px;
+
+            animation:float 2s infinite ease-in-out;
+        }
+
+        h1{
+
+            font-size:40px;
+
+            margin-bottom:10px;
+        }
+
+        p{
+
+            color:#cbd5e1;
+        }
+
+        .loader{
+
+            margin-top:30px;
+
+            width:200px;
+
+            height:8px;
+
+            background:#1f174f;
+
+            border-radius:10px;
+
+            overflow:hidden;
+        }
+
+        .loader-bar{
+
+            width:0;
+
+            height:100%;
+
+            background:#8b5cf6;
+
+            animation:loading 3s linear forwards;
+        }
+
+        @keyframes loading{
+
+            from{
+                width:0;
+            }
+
+            to{
+                width:100%;
+            }
+        }
+
+        @keyframes float{
+
+            0%{
+                transform:translateY(0);
+            }
+
+            50%{
+                transform:translateY(-10px);
+            }
+
+            100%{
+                transform:translateY(0);
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="logo">
+
+        📚
+
+    </div>
+
+    <h1>TaskKampus</h1>
+
+    <p>
+        Sistem Manajemen Tugas Mahasiswa
+    </p>
+
+    <div class="loader">
+
+        <div class="loader-bar">
+
+        </div>
+
+    </div>
+
+    <script>
+
+        setTimeout(function(){
+
+            window.location.href =
+            "login.html";
+
+        },3000);
+
+    </script>
+
+</body>
+
+</html>

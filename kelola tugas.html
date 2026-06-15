@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelola Tugas</title>
+
+<link rel="stylesheet" href="css/kelola-tugas.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>
+        <i class="fa-solid fa-book"></i>
+        Kelola Tugas
+    </h1>
+
+    <div class="form-box">
+
+        <input
+        type="text"
+        id="judul"
+        placeholder="Judul Tugas">
+
+        <input
+        type="text"
+        id="matkul"
+        placeholder="Mata Kuliah">
+
+        <input
+        type="date"
+        id="deadline">
+
+        <button onclick="tambahTugas()">
+            Tambah Tugas
+        </button>
+
+    </div>
+
+    <div class="table-box">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                    <th>Mata Kuliah</th>
+                    <th>Deadline</th>
+                    <th>Aksi</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="dataTugas">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="js/kelola-tugas.js"></script>
+
+</body>
+</html>
